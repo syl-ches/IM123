@@ -8,7 +8,7 @@ CREATE TABLE VOLUNTEER_SERVICE (
     start_date DATE,
     end_date DATE,
     status VARCHAR(20),
-    volunteer_id INT
+    volunteer_id INT DEFAULT 0
 ) ENGINE=InnoDB;
 
 -- Volunteer table (referenced by VOLUNTEER_SERVICE)
