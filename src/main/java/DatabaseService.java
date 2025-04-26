@@ -1,6 +1,8 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.concurrent.ExecutionException;
 
 public class DatabaseService {
     public static void main(String[] args) {
@@ -18,6 +20,19 @@ public class DatabaseService {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
+            //checker cuz dependency chain
+            if (!serviceExists(conn, admin.getServiceId())){
+                throw new Exception(
+                        "Service ID " + admin.getServiceId() + " does not exist"
+                );
+            }
+
+            if (!existsVolunteerService(conn, admin.getServiceId())){
+                throw new Exception(
+                        "Service ID " + admin.getServiceId() + " does not exist"
+                );
+            }
+
             // Set parameters from Admin object
             pstmt.setInt(1, admin.getAdminId());
             pstmt.setString(2, admin.getAdminName());
@@ -30,6 +45,32 @@ public class DatabaseService {
 
         } catch (SQLException e) {
             System.err.println("Error adding admin: " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private boolean serviceExists(Connection conn, int serviceId) throws SQLException{
+        String sql = "SELECT 1 from VOLUNTEER_SERVICE WHERE service_id = ?";
+        try(PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setInt(1,serviceId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
+
+    private boolean existsVolunteerService(Connection conn, int serviceId) throws SQLException {
+        String sql =
+                "SELECT vs.volunteer_id " +
+                        "  FROM VOLUNTEER_SERVICE vs " +
+                        " WHERE vs.service_id = ? " +
+                        "   AND EXISTS (SELECT 1 FROM VOLUNTEER v WHERE v.volunteer_id = vs.volunteer_id)";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, serviceId);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
         }
     }
 }
