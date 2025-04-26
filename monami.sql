@@ -7,7 +7,7 @@ CREATE TABLE VOLUNTEER_SERVICE (
     service_type VARCHAR(50),
     start_date DATE,
     end_date DATE,
-    status VARCHAR(20),
+    current_status VARCHAR(20),
     volunteer_id INT DEFAULT 0
 ) ENGINE=InnoDB;
 

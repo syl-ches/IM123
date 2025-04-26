@@ -12,6 +12,21 @@ public class DatabaseService {
         dbService.addAdmin(newAdmin);
 
     }
+    // volunteer service and volunteer creation
+    /*
+    because of dependency chains, certain rules must be followed so that queries actually work
+    1. admins cannot exist without volunteer service records
+    2. volunteer service cannot exist without at least one volunteer to reference
+    3. upon the creation of a volunteer_service for the first time, the field "volunteer_id" must be null unless there exists a volunteer to reference for the have an id and that is an FK
+
+    SAMPLE QUERY SEQUENCING WHEN A volunteer_service RECORD HAS BEEN MADE WITH NO EXISTING VOLUNTEERS
+    INSERT INTO volunteer_service (service_id, service_location, service_type, start_date, end_date, current_status, volunteer_id) VALUES (1,"O Block","Saint Von Memorial", 2025-03-11,2025-03-13,"active",null);
+
+    INSERT INTO volunteer(volunteer_id, volunteer_name, phone_number, volunteer_email, volunteer_pass ) VALUES (1,"Reimu Hakurei","09999998888","ReimuuuHakurei@gmail.com","Pichuun");
+
+    UPDATE volunteer_service SET volunteer_id = 1 WHERE service_id = 1;
+     */
+
 
     // ADMIN OPS
     public void addAdmin(Admin admin) {
