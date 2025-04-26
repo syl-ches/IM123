@@ -24,15 +24,14 @@ CREATE TABLE VOLUNTEER (
 ALTER TABLE VOLUNTEER_SERVICE
 ADD FOREIGN KEY (volunteer_id) REFERENCES VOLUNTEER(volunteer_id);
 
--- Admin table (references VOLUNTEER_SERVICE)
+-- Admin table (independent)
 -- REFERENCING VOLUNTEER SERVICE THAT REFERENCES VOLUNTEER CAUSES DEPENDENCY CHAIN
 CREATE TABLE ADMIN (
     admin_id INT AUTO_INCREMENT PRIMARY KEY,
     admin_name VARCHAR(50) NOT NULL,
     phone_number VARCHAR(12),
     admin_pass VARCHAR(50) NOT NULL,
-    service_id INT,
-    FOREIGN KEY (service_id) REFERENCES VOLUNTEER_SERVICE(service_id)
+    service_id INT
 ) ENGINE=InnoDB;
 
 -- Beneficiary table (independent)

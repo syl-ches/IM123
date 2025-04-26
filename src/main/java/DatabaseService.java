@@ -8,7 +8,7 @@ public class DatabaseService {
     public static void main(String[] args) {
         DatabaseService dbService = new DatabaseService();
 
-        Admin newAdmin = new Admin(1, "John Doe", "555-1234", "securepass", 101);
+        Admin newAdmin = new Admin(0, "Spunch klob", "333-1234", "IHateSerbZ", 1);
         dbService.addAdmin(newAdmin);
 
     }
@@ -38,13 +38,13 @@ public class DatabaseService {
             //checker cuz dependency chain
             if (!serviceExists(conn, admin.getServiceId())){
                 throw new Exception(
-                        "Service ID " + admin.getServiceId() + " does not exist"
+                        "Service ID " + admin.getServiceId() + " does not exist, please pass an existing service ID"
                 );
             }
 
             if (!existsVolunteerService(conn, admin.getServiceId())){
                 throw new Exception(
-                        "Service ID " + admin.getServiceId() + " does not exist"
+                        "Service ID " + admin.getServiceId() + " does not exist, please pass an existing service ID"
                 );
             }
 
