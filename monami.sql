@@ -1,7 +1,7 @@
 -- Create tables in dependency order --
 
 -- Volunteer Service table (must come first)
-CREATE TABLE VOLUNTEER_SERVICE (
+CREATE TABLE SERVICE (
     service_id INT PRIMARY KEY,
     service_location VARCHAR(100),
     service_type VARCHAR(50),
@@ -9,6 +9,7 @@ CREATE TABLE VOLUNTEER_SERVICE (
     end_date DATE,
     current_status VARCHAR(20),
     volunteer_id INT DEFAULT 0
+    --should somehow reference a requestor
 ) ENGINE=InnoDB;
 
 -- Volunteer table (referenced by VOLUNTEER_SERVICE)

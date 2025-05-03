@@ -94,7 +94,7 @@ public class DatabaseService {
     }
 
     private boolean serviceExists(Connection conn, int serviceId) throws SQLException{
-        String sql = "SELECT 1 from VOLUNTEER_SERVICE WHERE service_id = ?";
+        String sql = "SELECT 1 from SERVICE WHERE service_id = ?";
         try(PreparedStatement stmt = conn.prepareStatement(sql)){
             stmt.setInt(1,serviceId);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -106,7 +106,7 @@ public class DatabaseService {
     private boolean existsVolunteerService(Connection conn, int serviceId) throws SQLException {
         String sql =
                 "SELECT vs.volunteer_id " +
-                        "  FROM VOLUNTEER_SERVICE vs " +
+                        "  FROM SERVICE vs " +
                         " WHERE vs.service_id = ? " +
                         "   AND EXISTS (SELECT 1 FROM VOLUNTEER v WHERE v.volunteer_id = vs.volunteer_id)";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
