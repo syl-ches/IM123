@@ -59,3 +59,10 @@ CREATE TABLE SERVICE_TARGET (
     FOREIGN KEY (service_id) REFERENCES VOLUNTEER_SERVICE(service_id),
     FOREIGN KEY (beneficiary_id) REFERENCES BENEFICIARY(beneficiary_id)
 ) ENGINE=InnoDB;
+
+
+-- Volunteer_service (junction table)
+CREATE TABLE VOLUNTEER_SERVICE (
+    FOREIGN KEY (service_id) REFERENCES VOLUNTEER_SERVICE(service_id),
+    FOREIGN KEY (volunteer_id) REFERENCES BENEFICIARY(beneficiary_id)
+) 
