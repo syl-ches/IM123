@@ -110,7 +110,7 @@ public class ServerMain extends JFrame {
 
                 writer.println("Connected to server!");
                 String line;
-                while ((line = reader.readLine()) != null) {
+                while ((line = reader.readLine()) !=  null) {
                     log("Received: " + line);
                     writer.println("Echo: " + line);
                 }
