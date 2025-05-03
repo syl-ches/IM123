@@ -78,10 +78,9 @@ public class DatabaseService {
                 String pass = rs.getString("admin_pass");
                 int serviceId = rs.getInt("service_id");
 
-                // If you have an Admin constructor matching these fields:
+
                 Admin admin = new Admin(id, name, phone, pass, serviceId);
 
-                // Customize this print however you like:
                 System.out.printf("ID: %d | Name: %s | Phone: %s | Service ID: %d%n",
                         admin.getAdminId(),
                         admin.getAdminName(),
