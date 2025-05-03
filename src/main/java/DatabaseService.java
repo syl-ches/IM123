@@ -10,6 +10,7 @@ public class DatabaseService {
 
         Admin newAdmin = new Admin(0, "Spunch klob", "333-1234", "IHateSerbZ", 1);
         dbService.addAdmin(newAdmin);
+        dbService.printAdmins();
 
     }
     // volunteer service and volunteer creation
@@ -60,6 +61,36 @@ public class DatabaseService {
             System.err.println("Error adding admin: " + e.getMessage());
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+    public void printAdmins() {
+        String sql = "SELECT admin_id, admin_name, phone_number, admin_pass, service_id FROM ADMIN";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            System.out.println("=== List of Admins ===");
+            while (rs.next()) {
+                int id = rs.getInt("admin_id");
+                String name = rs.getString("admin_name");
+                String phone = rs.getString("phone_number");
+                String pass = rs.getString("admin_pass");
+                int serviceId = rs.getInt("service_id");
+
+                // If you have an Admin constructor matching these fields:
+                Admin admin = new Admin(id, name, phone, pass, serviceId);
+
+                // Customize this print however you like:
+                System.out.printf("ID: %d | Name: %s | Phone: %s | Service ID: %d%n",
+                        admin.getAdminId(),
+                        admin.getAdminName(),
+                        admin.getPhoneNumber(),
+                        admin.getServiceId());
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error fetching admins: " + e.getMessage());
         }
     }
 
