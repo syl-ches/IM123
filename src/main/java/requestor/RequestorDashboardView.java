@@ -31,7 +31,7 @@ public class RequestorDashboardView extends JFrame {
 
         // Button panel
         JPanel buttonPanel = new JPanel(new GridBagLayout());
-        buttonPanel.setOpaque(false);  // transparent so background shows through
+        buttonPanel.setOpaque(false); 
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
